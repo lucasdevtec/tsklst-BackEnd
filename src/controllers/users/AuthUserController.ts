@@ -6,8 +6,8 @@ class AuthUserController {
     const auth = new AuthUserService();
     const { email, password } = req.body;
     if (password && email) {
-      const newUser = await auth.execute(email, password);
-      return res.json(newUser);
+      const authUser = await auth.execute(email, password);
+      return res.json(authUser);
     }
     throw new Error("Body da requisição incompleto");
   }

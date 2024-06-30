@@ -7,17 +7,16 @@ class AuthUserService {
     let secretjwt: string;
     if (process.env.HASHMD5JWT) {
       secretjwt = process.env.HASHMD5JWT;
-      console.log(secretjwt);
     } else {
       throw new Error("1010");
     }
     const user = await verificarUserPorEmail(email);
     if (!user) {
-      throw new Error("Usuário ou senha b");
+      throw new Error("Usuário ou senha inválido");
     }
     const passwordDcrypt = await compare(password, user.password);
     if (!passwordDcrypt) {
-      throw new Error("Usuário ou senha a");
+      throw new Error("Usuário ou senha inválido");
     }
     const tokenJWT = sign(
       { name: user.name, email: email },
