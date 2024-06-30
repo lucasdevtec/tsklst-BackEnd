@@ -5,11 +5,12 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["omitApi"]
 }
 
 model User {
   id          Int         @id @default(autoincrement())
-  email       String      @unique
+  email       String      @unique @db.VarChar(255)
   name        String      @db.VarChar(255)
   password    String      @db.VarChar(255)
   createdAt   DateTime    @default(now())
