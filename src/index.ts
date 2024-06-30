@@ -19,7 +19,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-const server = app.listen(3050, () =>
+app.listen(3050, () =>
   console.log(`
 🚀 Server ready at: http://localhost:3050`)
 );
