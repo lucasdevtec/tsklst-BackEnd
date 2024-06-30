@@ -3,9 +3,6 @@ import { db } from "../prisma";
 export async function verificarUserPorEmail(emailP: string) {
   if (emailP) {
     const user = await db.user.findUnique({
-      omit: {
-        password: true,
-      },
       where: {
         email: emailP,
       },
