@@ -11,6 +11,14 @@ app.use(router);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof Error) {
+    if (Number(err.message)) {
+      return res.status(500).json({
+        status: "error",
+        codigo: err.message,
+        message: "Erro Interno",
+      });
+    }
+
     return res.status(400).json({ error: err.message });
   }
   return res.status(500).json({
