@@ -19,9 +19,9 @@ class AuthUserService {
       throw new Error("Usuário ou senha inválido");
     }
     const tokenJWT = sign(
-      { name: user.name, email: email },
+      { id: user.id, email: user.email },
       process.env.HASHMD5JWT,
-      { subject: email, expiresIn: "10h" }
+      { subject: `${user.email}&&${user.id}`, expiresIn: "10h" }
     );
 
     return {

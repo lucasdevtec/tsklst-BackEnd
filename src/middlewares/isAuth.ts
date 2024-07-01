@@ -21,7 +21,8 @@ export function isAuth(req: Request, res: Response, next: NextFunction) {
     }
     const [, jwtToken] = reqToken?.split(" ");
     const { sub } = verify(jwtToken, secretjwt) as PayLoadType;
-    req.userKey = sub;
+    req.userEmail = sub.split("&&")[0];
+    req.userID = parseInt(sub.split("&&")[1]);
     return next();
   } catch (error) {
     res.status(401).json({ status: "Não Autorizado" });

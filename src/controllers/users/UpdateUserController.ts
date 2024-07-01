@@ -10,7 +10,7 @@ class UpdateUserController {
       if (newPassword) {
         if (password) {
           userUpdated = await updateUser.execute(
-            req.userKey,
+            req.userEmail,
             {
               name: name,
               password: newPassword,
@@ -25,7 +25,7 @@ class UpdateUserController {
       throw new Error("Missing Data: newPassword");
     }
     if (name || email) {
-      userUpdated = await updateUser.execute(req.userKey, {
+      userUpdated = await updateUser.execute(req.userEmail, {
         name: name,
         password: newPassword,
         email: email,
