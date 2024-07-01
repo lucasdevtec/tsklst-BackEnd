@@ -21,7 +21,7 @@ class AuthUserService {
     const tokenJWT = sign(
       { name: user.name, email: email },
       process.env.HASHMD5JWT,
-      { expiresIn: "10h" }
+      { subject: email, expiresIn: "10h" }
     );
 
     return {
