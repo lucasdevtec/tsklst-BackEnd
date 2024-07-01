@@ -10,6 +10,12 @@ type UserSelectType = {
   deletedAt?: boolean;
 };
 
+type UserType = {
+  email?: string;
+  name?: string;
+  password?: string;
+};
+
 export async function verificarUserPorEmail(
   emailP: string,
   select?: UserSelectType
@@ -50,6 +56,26 @@ export async function deletarUsuario(emailP: string) {
       omit: { password: true },
       where: {
         email: emailP,
+      },
+    });
+    return user;
+  }
+}
+
+export async function atualizarUser(emailP: string, data: UserType) {
+  if (emailP && data) {
+    const user = await db.user.update({
+      omit: {
+        createdAt: true,
+        id: true,
+        password: true,
+        deletedAt: true,
+      },
+      where: { email: emailP },
+      data: {
+        name: data.name,
+        email: data.email,
+        password: data.password,
       },
     });
     return user;
