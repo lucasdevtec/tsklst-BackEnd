@@ -37,3 +37,21 @@ export async function cadastrarUsuario(
   });
   return user;
 }
+
+export async function deletarUsuario(emailP: string) {
+  if (emailP) {
+    await db.user.update({
+      where: { email: emailP },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
+    const user = await db.user.findUnique({
+      omit: { password: true },
+      where: {
+        email: emailP,
+      },
+    });
+    return user;
+  }
+}
