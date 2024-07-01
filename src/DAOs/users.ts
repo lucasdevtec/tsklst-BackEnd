@@ -1,10 +1,25 @@
 import { db } from "../prisma";
 
-export async function verificarUserPorEmail(emailP: string) {
+type UserSelectType = {
+  id?: boolean;
+  email?: boolean;
+  name?: boolean;
+  password?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  deletedAt?: boolean;
+};
+
+export async function verificarUserPorEmail(
+  emailP: string,
+  select?: UserSelectType
+) {
   if (emailP) {
     const user = await db.user.findUnique({
+      select: select,
       where: {
         email: emailP,
+        deletedAt: null,
       },
     });
     return user;
