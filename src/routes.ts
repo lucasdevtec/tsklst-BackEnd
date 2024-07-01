@@ -5,6 +5,7 @@ import { DetailUserController } from "./controllers/users/DetailUserController";
 import { isAuth } from "./middlewares/isAuth";
 import { DeleteUserController } from "./controllers/users/DeleteUserController";
 import { UpdateUserController } from "./controllers/users/UpdateUserController";
+import { CreateTaskController } from "./controllers/tasks/CreateTaskController";
 
 const router = Router();
 
@@ -17,5 +18,10 @@ router.post("/users/session", new AuthUserController().handle);
 router.get("/me", isAuth, new DetailUserController().handle);
 router.delete("/me", isAuth, new DeleteUserController().handle);
 router.put("/me", isAuth, new UpdateUserController().handle);
+
+router.post("/tasks", isAuth, new CreateTaskController().handle);
+router.get("/tasks", isAuth, new AuthUserController().handle);
+router.put("/tasks", isAuth, new AuthUserController().handle);
+router.delete("/tasks", isAuth, new DeleteUserController().handle);
 
 export { router };
