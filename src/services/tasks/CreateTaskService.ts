@@ -1,4 +1,4 @@
-import { cadastrarTask, verificarTask } from "../../DAOs/tasks";
+import { cadastrarTask } from "../../DAOs/tasks";
 
 class CreateTaskService {
   async execute(idUser: number, title: string, content?: string) {
