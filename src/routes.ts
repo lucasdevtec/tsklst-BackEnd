@@ -6,7 +6,8 @@ import { isAuth } from "./middlewares/isAuth";
 import { DeleteUserController } from "./controllers/users/DeleteUserController";
 import { UpdateUserController } from "./controllers/users/UpdateUserController";
 import { CreateTaskController } from "./controllers/tasks/CreateTaskController";
-import { deleteTaskController } from "./controllers/tasks/DeleteTaskController";
+import { DeleteTaskController } from "./controllers/tasks/DeleteTaskController";
+import { UpdateTaskController } from "./controllers/tasks/UpdateTaskController";
 
 const router = Router();
 
@@ -21,7 +22,7 @@ router.delete("/me", isAuth, new DeleteUserController().handle);
 router.put("/me", isAuth, new UpdateUserController().handle);
 
 router.post("/tasks", isAuth, new CreateTaskController().handle);
-router.delete("/tasks", isAuth, new deleteTaskController().handle);
+router.delete("/tasks", isAuth, new DeleteTaskController().handle);
 router.put("/tasks", isAuth, new UpdateTaskController().handle);
 // router.get("/tasks", isAuth, new GetAllTasksController().handle);
 
