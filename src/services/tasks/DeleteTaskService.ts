@@ -1,4 +1,3 @@
-import { Task } from "@prisma/client";
 import { deleteTask, buscarTask } from "../../DAOs/tasks";
 
 class DeleteTaskService {
