@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { DeleteTaskService } from "../../services/tasks/DeleteTaskService";
 
-class deleteTaskController {
+class DeleteTaskController {
   async handle(req: Request, res: Response) {
     const { idTask } = req.body;
     if (idTask) {
@@ -15,4 +15,4 @@ class deleteTaskController {
     throw new Error("Missing Data: idTask!");
   }
 }
-export { deleteTaskController };
+export { DeleteTaskController };
