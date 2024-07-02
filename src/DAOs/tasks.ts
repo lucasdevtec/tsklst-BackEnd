@@ -10,39 +10,26 @@ type TaskSelect = {
   deletedAt?: boolean;
 };
 
-type TaskType = {
-  idCriador: number;
-  title: string;
-  content?: string;
-};
+export async function buscarTask(term: number, select?: TaskSelect) {
+  const task = await db.task.findFirst({
+    omit: select || { deletedAt: true },
+    where: {
+      id: term,
+      deletedAt: null,
+    },
+  });
+  return task;
+}
 
-export async function verificarTask(
-  param: "id" | "idCriador",
-  term: number | string,
-  select?: TaskSelect
-) {
-  let task;
-  if (param === "id" && typeof term === "number") {
-    task = await db.task.findFirst({
-      omit: select || { deletedAt: true },
-      where: {
-        id: term,
-        deletedAt: null,
-      },
-    });
-    return task;
-  }
-  if (param === "idCriador" && typeof term === "number") {
-    task = await db.task.findMany({
-      omit: select || { deletedAt: true },
-      where: {
-        authorId: term,
-        deletedAt: null,
-      },
-    });
-    return task;
-  }
-  throw new Error("Internal error on find task");
+export async function buscarTasks(term: number, select?: TaskSelect) {
+  const task = await db.task.findMany({
+    omit: select || { deletedAt: true },
+    where: {
+      authorId: term,
+      deletedAt: null,
+    },
+  });
+  return task;
 }
 
 export async function cadastrarTask(
@@ -53,6 +40,26 @@ export async function cadastrarTask(
   const task = await db.task.create({
     omit: { deletedAt: true },
     data: { title: title, content: content, authorId: idUser },
+  });
+  return task;
+}
+
+export async function deleteTask(idTask: number) {
+  const task = await db.task.update({
+    where: { id: idTask },
+    data: { deletedAt: new Date() },
+  });
+  return task;
+}
+
+export async function updateTask(
+  idTask: number,
+  data: { title: string; content?: string; status?: boolean }
+) {
+  const task = await db.task.update({
+    omit: { authorId: true, deletedAt: true },
+    where: { id: idTask },
+    data: data,
   });
   return task;
 }
