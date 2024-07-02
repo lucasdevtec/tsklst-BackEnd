@@ -54,7 +54,7 @@ export async function deleteTask(idTask: number) {
 
 export async function updateTask(
   idTask: number,
-  data: { title: string; content?: string; status?: boolean }
+  data: { title?: string; content?: string; status?: boolean }
 ) {
   const task = await db.task.update({
     omit: { authorId: true, deletedAt: true },
